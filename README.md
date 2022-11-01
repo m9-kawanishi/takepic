@@ -6,5 +6,6 @@
 opencv
 
 以下HomeBrewでインストール
+
 lame
 sox
