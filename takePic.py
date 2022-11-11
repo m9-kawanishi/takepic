@@ -16,6 +16,9 @@ counter = 0 # ファイル名（番号）
 # カメラの設定（引数：デバイスID）
 cap = cv2.VideoCapture(0)
 
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, 3840)
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 2160) 
+
 # 初期設定画面
 counter = int(input("Please input first file no: "))
 cmd = input("Are you sure start process? (y/n): ")
