@@ -3,6 +3,7 @@ import time
 import beep
 import sys
 import os
+import keyboard
 
 # 変数設定
 FOLDER_NAME = "./test/" # 保存先ディレクトリ
@@ -16,14 +17,14 @@ counter = 0 # ファイル名（番号）
 # カメラの設定（引数：デバイスID）
 cap = cv2.VideoCapture(0)
 
-cap.set(cv2.CAP_PROP_FRAME_WIDTH, 3840)
-cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 2160) 
+# cap.set(cv2.CAP_PROP_FRAME_WIDTH, 3840)
+# cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 2160) 
 
 # 初期設定画面
 counter = int(input("Please input first file no: "))
 cmd = input("Are you sure start process? (y/n): ")
 print("\n")
-print("When you quit process, please put esc button", file=sys.stderr)
+print("When you quit process, please put esc or backspace button", file=sys.stderr)
 
 cv2.namedWindow("camera", cv2.WINDOW_NORMAL)
 
@@ -57,9 +58,9 @@ while cmd == "y":
 
     # エスケープで終了
     key = cv2.waitKey(10)
-    if key == 27:
-        cmd = "n"
-        print("Esc process")
+    if keyboard.read_key() == "backspace" or key==27:
+        print("esc process")
+        break
     
     # 一定時間停止
     time.sleep(SLEEP_SEC)
