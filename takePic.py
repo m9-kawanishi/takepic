@@ -1,30 +1,33 @@
+import os
+# opencvをインポートする前にこの処理を加えると起動が早くなる
+os.environ["OPENCV_VIDEOIO_MSMF_ENABLE_HW_TRANSFORMS"] = "0"
 import cv2
 import time
 import beep
 import sys
-import os
 import keyboard
+
 
 # 変数設定
 FOLDER_NAME = "./test/" # 保存先ディレクトリ
 FILE_NAME = "IMAGE_" # ファイル名（共通）
-EXTENSION = ".png" # 拡張子
+EXTENSION = ".jpg" # 拡張子
 SLEEP_SEC = 4 # 撮影間隔[sec]
-SHOW_WIN_SCALE = 0.5 # 表示ウィンドウの倍率
+SHOW_WIN_SCALE = 0.25 # 表示ウィンドウの倍率
 
 counter = 0 # ファイル名（番号）
 
 # カメラの設定（引数：デバイスID）
 cap = cv2.VideoCapture(0)
 
-# cap.set(cv2.CAP_PROP_FRAME_WIDTH, 3840)
-# cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 2160) 
-
 # 初期設定画面
 counter = int(input("Please input first file no: "))
 cmd = input("Are you sure start process? (y/n): ")
 print("\n")
-print("When you quit process, please put esc or backspace button", file=sys.stderr)
+print("When you quit process, please continue to put esc button", file=sys.stderr)
+
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, 3840)
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 2160) 
 
 cv2.namedWindow("camera", cv2.WINDOW_NORMAL)
 
@@ -39,6 +42,7 @@ while cmd == "y":
 
     # カメラ画像取得
     ret, frame = cap.read()
+    time.sleep(0.1)
 
     # 画像保存
     cv2.imwrite(fileName, frame)
@@ -52,13 +56,13 @@ while cmd == "y":
     cv2.imshow('camera', frame)
     
     # 画像保存が完了したらビープ音を鳴らす
-    beep.beepOn(1500, 200)
+    beep.beepOn(1500, 500)
     print(fileName + " was saved", file=sys.stderr)
 
 
     # エスケープで終了
     key = cv2.waitKey(10)
-    if keyboard.read_key() == "backspace" or key==27:
+    if keyboard.is_pressed("escape"):
         print("esc process")
         break
     
