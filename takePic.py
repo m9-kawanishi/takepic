@@ -8,8 +8,8 @@ import sys
 
 
 # 変数設定
-FOLDER_NAME = "./test/" # 保存先ディレクトリ
-FILE_NAME = "test_" # ファイル名（共通）
+FOLDER_NAME = "./fordetect/riceball/tunaH/" # 保存先ディレクトリ
+FILE_NAME = "tunaH_detect_0105_" # ファイル名（共通）
 EXTENSION = ".jpg"
 SLEEP_SEC = 3 # 撮影間隔[sec]
 SHOW_WIN_SCALE = 0.5 # 表示ウィンドウの倍率
@@ -17,7 +17,7 @@ SHOW_WIN_SCALE = 0.5 # 表示ウィンドウの倍率
 counter = 0 # ファイル名（番号）
 
 # カメラの設定（引数：デバイスID）
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 
 # 初期設定画面
 counter = int(input("Please input first file no: "))
@@ -55,6 +55,7 @@ while cmd == "y":
 
         # カメラ画像出力
         cv2.imshow('camera', frame)
+        key = cv2.waitKey(10)
         
         # 画像保存が完了したらビープ音を鳴らす
         beep.beepOn(1500, 500)
