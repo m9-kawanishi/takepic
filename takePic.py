@@ -8,16 +8,17 @@ import sys
 
 
 # 変数設定
-FOLDER_NAME = "./fordetect/riceball/tunaH/" # 保存先ディレクトリ
-FILE_NAME = "tunaH_detect_0105_" # ファイル名（共通）
+FOLDER_NAME = "$path/to/folder$" # 保存先ディレクトリ
+FILE_NAME = "$filename_" # ファイル名（共通）
 EXTENSION = ".jpg"
 SLEEP_SEC = 3 # 撮影間隔[sec]
 SHOW_WIN_SCALE = 0.5 # 表示ウィンドウの倍率
+FOCUS_VAL = 120
 
 counter = 0 # ファイル名（番号）
 
 # カメラの設定（引数：デバイスID）
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 
 # 初期設定画面
 counter = int(input("Please input first file no: "))
@@ -25,8 +26,20 @@ cmd = input("Are you sure start process? (y/n): ")
 print("\n")
 print("When you quit process, please put control+c", file=sys.stderr)
 
+# 解像度の設定
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, 3840)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 2160) 
+
+# オートフォーカスをオフ
+cap.set(cv2.CAP_PROP_AUTOFOCUS, 0)
+# カメラの自動露光調整をOFFに設定
+# cap.set(cv2.CAP_PROP_AUTO_EXPOSURE, 0)
+# フォーカス値を設定
+cap.set(cv2.CAP_PROP_FOCUS, FOCUS_VAL)
+
+# テスト用撮影
+for i in range(2):
+    ret, frame = cap.read()
 
 cv2.namedWindow("camera", cv2.WINDOW_NORMAL)
 
