@@ -8,12 +8,13 @@ import sys
 
 
 # 変数設定
-FOLDER_NAME = "$path/to/folder$" # 保存先ディレクトリ
-FILE_NAME = "$filename_" # ファイル名（共通）
+FOLDER_NAME = "/path/to/folder/" # 保存先ディレクトリ
+FILE_NAME = "filename_" # ファイル名（共通）
 EXTENSION = ".jpg"
 SLEEP_SEC = 3 # 撮影間隔[sec]
-SHOW_WIN_SCALE = 0.5 # 表示ウィンドウの倍率
-FOCUS_VAL = 120
+SHOW_WIN_SCALE = 0.25 # 表示ウィンドウの倍率
+FOCUS_VAL = 120  # フォーカス値
+PROP_VAL = -4  # 露光
 
 counter = 0 # ファイル名（番号）
 
@@ -36,6 +37,8 @@ cap.set(cv2.CAP_PROP_AUTOFOCUS, 0)
 # cap.set(cv2.CAP_PROP_AUTO_EXPOSURE, 0)
 # フォーカス値を設定
 cap.set(cv2.CAP_PROP_FOCUS, FOCUS_VAL)
+# カメラの露光度を調整
+cap.set(cv2.CAP_PROP_EXPOSURE, PROP_VAL)
 
 # テスト用撮影
 for i in range(2):
